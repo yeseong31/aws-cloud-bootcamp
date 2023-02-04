@@ -1,3 +1,5 @@
+import os
+
 from dj_database_url import config
 
 from .base import *
@@ -8,7 +10,9 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    os.getenv('ELASTIC_HOST'),
+]
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
