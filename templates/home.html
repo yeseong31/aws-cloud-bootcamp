@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h1>HomePage</h1>
+<!-- Button trigger modal -->
+<button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">시작하기</button>
+
+<!-- First Modal -->
+<div class="modal fade" id="exampleModalToggle" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">프로필 설정</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        본인의 이름과 사진을 설정해 주세요.
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">다음</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Second Modal -->
+<div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">방 선택</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <button class="btn btn-success" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" style="float: right">방 생성</button>
+        {% include 'rooms.html' %}
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-backdrop="static" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">뒤로</button>
+        <button class="btn btn-primary">방 입장</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Third Modal -->
+<div class="modal fade" id="exampleModalToggle3" data-bs-backdrop="static" aria-hidden="true" aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalToggleLabel3">방 생성</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        새로운 방을 생성합니다.
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로</button>
+        <button class="btn btn-primary">입장!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
