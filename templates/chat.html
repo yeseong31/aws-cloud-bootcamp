@@ -86,7 +86,7 @@
     function sendMessage() {
         const socket = io.connect('http://' + document.domain + ':' + location.port);
         let inputMessage = $('#messageInput');
-        if (inputMessage.val() !== '') {
+        if (inputMessage.val().replace(/^\s+|\s+$/g,'') !== '') {
             socket.send(inputMessage.val());
             inputMessage.val('');
         }
