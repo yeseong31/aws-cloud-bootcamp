@@ -65,14 +65,13 @@
           </div>
 
           <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
-            <label for="exampleFormControlInput1"></label>
-            <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
+            <label for="messageInput"></label>
+            <input type="text" class="form-control form-control-lg" id="messageInput"
                    placeholder="메시지를 입력해 주세요">
             {#            <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>#}
             <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
             <a class="ms-3 text-muted" href="#!">
-              <i class="fas fa-paper-plane"
-                 onclick="sendMessage()" onkeyup="enterButton()" onsubmit="return false"></i>
+              <i class="fas fa-paper-plane" onclick="sendMessage()" onsubmit="return false"></i>
             </a>
           </div>
         </div>
@@ -113,7 +112,7 @@
         });
     });
 
-    $("#exampleFormControlInput1").keypress(function (e) {
+    $("#messageInput").keypress(function (e) {
         if (e.keyCode === 13) {
             sendMessage()
         }
@@ -121,7 +120,7 @@
 
     function sendMessage() {
         const socket = io.connect('http://' + document.domain + ':' + location.port);
-        let inputMessage = $('#exampleFormControlInput1');
+        let inputMessage = $('#messageInput');
         if (inputMessage.val() !== '') {
             socket.send(inputMessage.val());
             inputMessage.val('');
