@@ -113,6 +113,12 @@
         });
     });
 
+    $("#exampleFormControlInput1").keypress(function (e) {
+        if (e.keyCode === 13) {
+            sendMessage()
+        }
+    });
+
     function sendMessage() {
         const socket = io.connect('http://' + document.domain + ':' + location.port);
         let inputMessage = $('#exampleFormControlInput1');
