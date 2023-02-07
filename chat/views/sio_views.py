@@ -2,6 +2,7 @@ import os
 
 import socketio
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from config.settings.base import BASE_DIR
 
@@ -21,20 +22,23 @@ thread = None
 to_client = dict()
 
 
+# def chat(request):
+#     global thread
+#     if thread is None:
+#         thread = sio.start_background_task(background_thread)
+#     return HttpResponse(open(os.path.join(BASE_DIR, 'templates/chat.html')))
+#
+#
+# def background_thread():
+#     """Example of how to send server generated events to clients."""
+#     count = 0
+#     while True:
+#         sio.sleep(10)
+#         count += 1
+#         sio.emit('my_response', {'data': '[Server] Server generated event'}, namespace='/test')
+
 def chat(request):
-    global thread
-    if thread is None:
-        thread = sio.start_background_task(background_thread)
-    return HttpResponse(open(os.path.join(BASE_DIR, 'templates/chat.html')))
-
-
-def background_thread():
-    """Example of how to send server generated events to clients."""
-    count = 0
-    while True:
-        sio.sleep(10)
-        count += 1
-        sio.emit('my_response', {'data': '[Server] Server generated event'}, namespace='/test')
+    return render(request, 'chat.html')
 
 
 @sio.event
