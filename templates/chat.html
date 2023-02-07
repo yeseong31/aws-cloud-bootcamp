@@ -1,19 +1,87 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   <title>Chat Room</title>
+  <!-- CSS -->
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
+  <!-- MDB -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css"
+        rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script type="text/javascript"
           src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
 </head>
 <body>
-<ul id="messages"></ul>
-<label for="myMessage"></label>
-<input type="text" id="myMessage">
-<button id="sendbutton">Send</button>
+<section style="background-color: #eee;">
+  <div class="container py-5">
 
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-6">
+
+        <div class="card" id="chat2">
+          <div class="card-header d-flex justify-content-between align-items-center p-3">
+            <h5 class="mb-0">SocketIO Chat</h5>
+          </div>
+
+          <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative; height: 400px">
+            <ul id="messages"></ul>
+
+{#            <div class="d-flex flex-row justify-content-start">#}
+{#              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"#}
+{#                   alt="avatar 1" style="width: 45px; height: 100%;">#}
+{#              <div>#}
+{#                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">Hi</p>#}
+{#                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">How are you ...???</p>#}
+{#                <p class="small p-2 ms-3 mb-1 rounded-3" style="background-color: #f5f6f7;">#}
+{#                  What are you doing tomorrow? Can we come up a bar?</p>#}
+{#                <p class="small ms-3 mb-3 rounded-3 text-muted">23:58</p>#}
+{#              </div>#}
+{#            </div>#}
+{##}
+{#            <div class="divider d-flex align-items-center mb-4">#}
+{#              <p class="text-center mx-3 mb-0" style="color: #a2aab7;">Today</p>#}
+{#            </div>#}
+{##}
+{#            <div class="d-flex flex-row justify-content-end mb-4 pt-1">#}
+{#              <div>#}
+{#                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">Hiii, I'm good.</p>#}
+{#                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">How are you doing?</p>#}
+{#                <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-primary">#}
+{#                  Long time no see! Tomorrow office. will be free on sunday.</p>#}
+{#                <p class="small me-3 mb-3 rounded-3 text-muted d-flex justify-content-end">00:06</p>#}
+{#              </div>#}
+{#              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"#}
+{#                   alt="avatar 1" style="width: 45px; height: 100%;">#}
+{#            </div>#}
+
+          </div>
+
+          <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+            <label for="exampleFormControlInput1"></label>
+            <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
+                   placeholder="메시지를 입력해 주세요">
+{#            <a class="ms-1 text-muted" href="#!"><i class="fas fa-paperclip"></i></a>#}
+            <a class="ms-3 text-muted" href="#!"><i class="fas fa-smile"></i></a>
+            <a class="ms-3 text-muted" href="#!"><i class="fas fa-paper-plane" onclick="sendMessage()"></i></a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+</body>
+<!-- MDB -->
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         console.log('http://' + document.domain + ':' + location.port)
@@ -39,12 +107,15 @@
             }
             console.log('Received Message: ' + msg.message + ', ' + msg.type)
         });
-
-        $('#sendbutton').on('click', function () {
-            socket.send($('#myMessage').val());
-            $('#myMessage').val('');
-        });
     });
+
+    function sendMessage() {
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+        let inputMessage = $('#exampleFormControlInput1');
+        if (inputMessage.val() !== '') {
+            socket.send(inputMessage.val());
+            inputMessage.val('');
+        }
+    }
 </script>
-</body>
 </html>
