@@ -1,11 +1,12 @@
 from django.urls import path
 
-from chat.views import sio_views
+from chat.views import base_views, sio_views
 
 app_name = 'chat'
 
 urlpatterns = [
+    # ----- Homepage -----
+    path('', base_views.home, name='home'),
     # ----- SocketIO -----
-    path('', sio_views.chat, name='chat'),
-    
+    path('chat/', sio_views.chat, name='chat'),
 ]
