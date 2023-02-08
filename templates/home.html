@@ -17,15 +17,17 @@
         </div>
         <div class="modal-body">
           <!-- Modal: Profile -->
-          <p class="card-text">참여자의 이름을 설정합니다.</p>
+          <p class="card-text">닉네임을 설정합니다.</p>
           <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
             <label for="nickname"></label>
-            <input id="nickname" name="nickname" type="text"
-                   class="form-control my-comment-box-content" placeholder="이름을 입력해 주세요." onkeyup="listener()">
+            <input id="setNickname" name="setNickname" type="text"
+                   class="form-control" placeholder="닉네임을 입력해 주세요." onkeyup="listener_first()">
           </div>
         </div>
         <div class="modal-footer">
-          <button id="btnNext" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" disabled>다음</button>
+          <button id="btnNext1" class="btn btn-primary" data-bs-target="#exampleModalToggle2"
+                  data-bs-toggle="modal" disabled>다음
+          </button>
         </div>
       </div>
     </div>
@@ -41,50 +43,43 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <button class="btn btn-outline-success btn-sm" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" style="float: right">방 생성</button>
           <p class="card-text">입장하고자 하는 방을 선택해 주세요.</p>
-          <div class="album py-5">
+          <div class="album">
             <div class="container">
               <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
                 <!-- 방 리스트 -->
                 {% if room_list %}
                   {% for room in room_list %}
+                    <div class="col">
+                      <div class="card shadow-sm text-right">
+                        <div class="card-body">
+                          <p class="card-text">{{ room.name }}</p>
+                          <small class="text-muted small mx-2">{{ room.current }}명 / {{ room.total }}명</small>
+                          <a href="#" class="btn btn-outline-primary btn-sm enterRoomBtn" style="float: right">입장</a>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
                   <div class="col">
                     <div class="card shadow-sm text-right">
                       <div class="card-body">
-                        <p class="card-text">{{ room.name }}</p>
-                        <small class="text-muted small mx-2">{{ room.current }}명 / {{ room.total }}명</small>
-                        <a href="#" class="btn btn-outline-dark btn-sm enterRoomBtn" style="float: right">입장</a>
+                        <p class="card-text">1번 방</p>
+                        <small class="text-muted">X명 참가 중</small>
+                        <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
                       </div>
                     </div>
                   </div>
-                  {% endfor %}
-                {% else %}
-                <div class="col">
-                  <div class="card shadow-sm text-right">
-                    <div class="card-body">
-                      <p class="card-text">1번 방</p>
-                      <small class="text-muted">X명 참가 중</small>
-                      <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col">
-                  <div class="card shadow-sm text-right">
-                    <div class="card-body">
-                      <p class="card-text">2번 방</p>
-                      <small class="text-muted">X명 참가 중</small>
-                      <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
-                    </div>
-                  </div>
-                </div>
                 {% endif %}
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-backdrop="static" data-bs-target="#exampleModalToggle"
+          <button class="btn btn-outline-success" data-bs-target="#exampleModalToggle3"
+                  data-bs-toggle="modal" onclick="setNicknameListener()">방 생성
+          </button>
+          <button class="btn btn-outline-secondary" data-bs-backdrop="static" data-bs-target="#exampleModalToggle"
                   data-bs-toggle="modal">뒤로
           </button>
         </div>
@@ -104,44 +99,131 @@
         <div class="modal-body">
           <!-- Modal: Create Room -->
           <p class="card-text">새로운 방을 생성합니다.</p>
+          <div style="align-items: center; margin-top: 10px">
+            <input id="setNickname2" name="setNickname2" type="text" class="form-control" disabled>
+          </div>
           <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
-            <label for="nickname"></label>
-            <input id="nickname" name="nickname" type="text"
-                   class="form-control my-comment-box-content" placeholder="방 이름을 입력해 주세요.">
+            <label for="roomNameTmp"></label>
+            <input id="roomNameTmp" name="roomNameTmp" type="text"
+                   class="form-control" placeholder="방 이름을 입력해 주세요." onkeyup="listener_third()">
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로</button>
-          <button class="btn btn-primary">입장</button>
+          <button class="btn btn-outline-success" data-bs-target="#exampleModalToggle4"
+                  data-bs-toggle="modal">닉네임 변경
+          </button>
+          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로</button>
+          <button id="btnEnterRoom" class="btn btn-primary" onclick="createRoomListener()" disabled>입장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Forth Modal -->
+  <div class="modal fade" id="exampleModalToggle4" data-bs-backdrop="static" aria-hidden="true"
+       aria-labelledby="exampleModalToggleLabel4" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: 1000px">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel4">프로필 변경</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal: Profile -->
+          <p class="card-text">닉네임을 변경합니다.</p>
+          <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+            <label for="changeNickname"></label>
+            <input id="changeNickname" name="changeNickname" type="text"
+                   class="form-control my-comment-box-content" placeholder="닉네임을 입력해 주세요." onkeyup="listener_forth()">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">뒤로</button>
+          <button id="btnChangeNickname" class="btn btn-primary" data-bs-target="#exampleModalToggle3"
+                  data-bs-toggle="modal" onclick="changeNicknameListener()" disabled>변경
+          </button>
         </div>
       </div>
     </div>
   </div>
 
   <!-- 방 입장 Form -->
-  <form method="get" id="roomForm" action="#">
-    <input type="hidden" id="owner" name="owner">
+  <form method="get" id="enterRoomForm" action="#">
+    <input type="hidden" id="participant" name="participant">
+  </form>
+  <!-- 방 생성 Form -->
+  <form method="post" id="createRoomForm" action="#">
+    <input type="hidden" id="participant" name="participant">
+    <input type="hidden" id="roomName" name="roomName">
   </form>
 
 {% endblock %}
 
 {% block script %}
-<script type='text/javascript'>
-const room_elements = document.getElementsByClassName("enterRoomBtn");
-Array.from(room_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        document.getElementById('owner').value = document.getElementById('nickname').value;
-        document.getElementById('roomForm').submit();
-    });
-});
+  <script type='text/javascript'>
+      const btnNext1 = document.getElementById('btnNext1');
+      const btnNext2 = document.getElementById('btnNext2');
+      const btnEnterRoom = document.getElementById('btnEnterRoom');
+      const btnChangeNickname = document.getElementById('btnChangeNickname');
+      const setNickname1 = document.getElementById('setNickname');
+      const setNickname2 = document.getElementById('setNickname2');
+      const changeNickname = document.getElementById('changeNickname');
+      const roomNameTmp = document.getElementById('roomNameTmp');
 
-const nicknameForm = document.getElementById('nickname');
-const btnNext = document.getElementById('btnNext');
-function listener() {
-    switch (!nicknameForm.value) {
-        case true: btnNext.disabled = true; break;
-        case false: btnNext.disabled = false; break;
-    }
-}
-</script>
+      const room_elements = document.getElementsByClassName("enterRoomBtn");
+      Array.from(room_elements).forEach(function (element) {
+          element.addEventListener('click', function () {
+              document.getElementById('participant').value = setNickname1.value;
+              document.getElementById('enterRoomForm').submit();
+          });
+      });
+
+      function listener_first() {
+          switch (!setNickname1.value) {
+              case true:
+                  btnNext1.disabled = true;
+                  break;
+              case false:
+                  btnNext1.disabled = false;
+                  break;
+          }
+      }
+
+      function listener_third() {
+          switch (!roomNameTmp.value) {
+              case true:
+                  btnEnterRoom.disabled = true;
+                  break;
+              case false:
+                  btnEnterRoom.disabled = false;
+                  break;
+          }
+      }
+
+      function listener_forth() {
+          switch (!changeNickname.value) {
+              case true:
+                  btnChangeNickname.disabled = true;
+                  break;
+              case false:
+                  btnChangeNickname.disabled = false;
+                  break;
+          }
+      }
+
+      function createRoomListener() {
+          document.getElementById('participant').value = setNickname2.value;
+          document.getElementById('roomName').value = document.getElementById('roomNameTmp').value;
+          document.getElementById('enterRoomForm').submit();
+      }
+
+      function setNicknameListener() {
+          setNickname2.value = setNickname1.value;
+      }
+
+      function changeNicknameListener() {
+          setNickname1.value = changeNickname.value;
+          setNickname2.value = changeNickname.value;
+      }
+  </script>
 {% endblock %}
