@@ -16,14 +16,21 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {% include 'set_profile.html' %}
+          <!-- Modal: Profile -->
+          <p class="card-text">참여자의 이름을 설정합니다.</p>
+          <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+            <label for="nickname"></label>
+            <input id="nickname" name="nickname" type="text"
+                   class="form-control my-comment-box-content" placeholder="이름을 입력해 주세요." onkeyup="listener()">
+          </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">다음</button>
+          <button id="btnNext" class="btn btn-primary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" disabled>다음</button>
         </div>
       </div>
     </div>
   </div>
+
   <!-- Second Modal -->
   <div class="modal fade" id="exampleModalToggle2" data-bs-backdrop="static" aria-hidden="true"
        aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
@@ -35,7 +42,46 @@
         </div>
         <div class="modal-body">
           <button class="btn btn-outline-success btn-sm" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal" style="float: right">방 생성</button>
-          {% include 'rooms.html' %}
+          <p class="card-text">입장하고자 하는 방을 선택해 주세요.</p>
+          <div class="album py-5">
+            <div class="container">
+              <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+                <!-- 방 리스트 -->
+                {% if room_list %}
+                  {% for room in room_list %}
+                  <div class="col">
+                    <div class="card shadow-sm text-right">
+                      <div class="card-body">
+                        <p class="card-text">{{ room.name }}</p>
+                        <small class="text-muted small mx-2">{{ room.current }}명 / {{ room.total }}명</small>
+                        <a href="#" class="btn btn-outline-dark btn-sm enterRoomBtn" style="float: right">입장</a>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                {% else %}
+                <div class="col">
+                  <div class="card shadow-sm text-right">
+                    <div class="card-body">
+                      <p class="card-text">1번 방</p>
+                      <small class="text-muted">X명 참가 중</small>
+                      <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card shadow-sm text-right">
+                    <div class="card-body">
+                      <p class="card-text">2번 방</p>
+                      <small class="text-muted">X명 참가 중</small>
+                      <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
+                    </div>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-backdrop="static" data-bs-target="#exampleModalToggle"
@@ -45,6 +91,7 @@
       </div>
     </div>
   </div>
+
   <!-- Third Modal -->
   <div class="modal fade" id="exampleModalToggle3" data-bs-backdrop="static" aria-hidden="true"
        aria-labelledby="exampleModalToggleLabel3" tabindex="-1">
@@ -55,7 +102,13 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {% include 'create_room.html' %}
+          <!-- Modal: Create Room -->
+          <p class="card-text">새로운 방을 생성합니다.</p>
+          <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+            <label for="nickname"></label>
+            <input id="nickname" name="nickname" type="text"
+                   class="form-control my-comment-box-content" placeholder="방 이름을 입력해 주세요.">
+          </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로</button>
@@ -65,4 +118,30 @@
     </div>
   </div>
 
+  <!-- 방 입장 Form -->
+  <form method="get" id="roomForm" action="#">
+    <input type="hidden" id="owner" name="owner">
+  </form>
+
+{% endblock %}
+
+{% block script %}
+<script type='text/javascript'>
+const room_elements = document.getElementsByClassName("enterRoomBtn");
+Array.from(room_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        document.getElementById('owner').value = document.getElementById('nickname').value;
+        document.getElementById('roomForm').submit();
+    });
+});
+
+const nicknameForm = document.getElementById('nickname');
+const btnNext = document.getElementById('btnNext');
+function listener() {
+    switch (!nicknameForm.value) {
+        case true: btnNext.disabled = true; break;
+        case false: btnNext.disabled = false; break;
+    }
+}
+</script>
 {% endblock %}
