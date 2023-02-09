@@ -107,7 +107,8 @@
           <button class="btn btn-outline-success" data-bs-target="#exampleModalToggle4"
                   data-bs-toggle="modal">닉네임 변경
           </button>
-          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로</button>
+          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal">뒤로
+          </button>
           <button id="btnEnterRoom" class="btn btn-primary" onclick="createRoomListener()" disabled>입장</button>
         </div>
       </div>
@@ -133,7 +134,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">뒤로</button>
+          <button class="btn btn-outline-secondary" data-bs-target="#exampleModalToggle3" data-bs-toggle="modal">뒤로
+          </button>
           <button id="btnChangeNickname" class="btn btn-primary" data-bs-target="#exampleModalToggle3"
                   data-bs-toggle="modal" onclick="changeNicknameListener()" disabled>변경
           </button>
@@ -169,8 +171,8 @@
       const room_elements = document.getElementsByClassName("enterRoomBtn");
       Array.from(room_elements).forEach(function (element) {
           element.addEventListener('click', function () {
-          document.getElementById('participant').value = setNickname1.value;
-          document.getElementById('roomCode').value = document.getElementById('roomCodeTmp').value;
+              document.getElementById('participant').value = setNickname1.value;
+              document.getElementById('roomCode').value = document.getElementById('roomCodeTmp').value;
               document.getElementById('enterRoomForm').submit();
           });
       });
