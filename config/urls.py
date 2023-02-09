@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', include('chat.urls')),
 ]
+
+handler400 = 'chat.views.handler_views.bad_request_page'
+handler404 = 'chat.views.handler_views.page_not_found_page'
+handler500 = 'chat.views.handler_views.server_error_page'
