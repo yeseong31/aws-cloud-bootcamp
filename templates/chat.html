@@ -46,6 +46,9 @@
     </div>
   </div>
 </section>
+
+<input type="text" id="nickname" value="{{ nickname|default_if_none:'' }}" hidden>
+<input type="text" id="roomCode" value="{{ roomCode|default_if_none:'' }}" hidden>
 </body>
 <!-- javascript -->
 <script type="text/javascript"
@@ -56,8 +59,17 @@
         const socket = io.connect('http://' + document.domain + ':' + location.port);
         socket.on('connect', function () {
             console.log(socket.connected);
-            const msg = "New Connect!";
-            socket.send(msg);
+            if (!(document.getElementById('nickname').value && document.getElementById('roomCode'))) {
+                alert('이름과 방 설정을 먼저 진행해 주세요.');
+                window.location.href = '/';
+            } else {
+                socket.emit(
+                    'join', {
+                        'nickname': document.getElementById('nickname').value,
+                        'roomCode': document.getElementById('roomCode').value
+                    });
+                socket.send('New Connect!');
+            }
         });
         socket.on('disconnect', function () {
             console.log(socket.connected);
