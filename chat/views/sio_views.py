@@ -16,22 +16,6 @@ thread = None
 to_client = dict()
 
 
-# def chat(request):
-#     global thread
-#     if thread is None:
-#         thread = sio.start_background_task(background_thread)
-#     return HttpResponse(open(os.path.join(BASE_DIR, 'templates/chat.html')))
-#
-#
-# def background_thread():
-#     """Example of how to send server generated events to clients."""
-#     count = 0
-#     while True:
-#         sio.sleep(10)
-#         count += 1
-#         sio.emit('my_response', {'data': '[Server] Server generated event'}, namespace='/test')
-
-
 @sio.on('join')
 def on_join(sid, data):
     """
@@ -76,17 +60,19 @@ def on_message(sid, data):
     :return(send):
     - message: 메시지 내용
     - type: 메시지 타입
+    - nickname: 메시지 대상(참가자) 닉네임
     """
     message = data['message']
     room_code = data.get('roomCode')
-    to_client['message'] = message
-    to_client['nickname'] = data.get('nickname', '익명')
+    nickname = data.get('nickname', '익명')
+
+    to_client['nickname'] = nickname
 
     if message == 'CONNECT':
-        to_client['message'] = f'{to_client["nickname"]} 님이 입장하였습니다.'
+        to_client['message'] = f'{nickname} 님이 입장하였습니다.'
         to_client['type'] = 'connect'
     elif message == 'DISCONNECT':
-        to_client['message'] = f'{to_client["nickname"]} 님이 퇴장하였습니다.'
+        to_client['message'] = f'{nickname} 님이 퇴장하였습니다.'
         to_client['type'] = 'disconnect'
     else:
         to_client['message'] = message
