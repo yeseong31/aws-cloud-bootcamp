@@ -32,35 +32,6 @@ to_client = dict()
 #         sio.emit('my_response', {'data': '[Server] Server generated event'}, namespace='/test')
 
 
-@sio.event
-def on_connect(sid, environ):
-    """
-    SocketIO Connect 이벤트
-
-    :param sid:
-    - SocketIO ID
-
-    :return(emit):
-    - message: emit 설명
-    - sid: SocketIO ID
-    """
-    sio.emit('connect', {'message': '[Server] Connected', 'sid': sid})
-
-
-@sio.event
-def on_disconnect(sid):
-    """
-    SocketIO Disconnect 이벤트
-
-    :param sid:
-    - SocketIO ID
-
-    :return(emit):
-    - message: emit 설명
-    """
-    sio.emit('disconnect', {'message': '[Server] Disconnected'})
-
-
 @sio.on('join')
 def on_join(sid, data):
     """
@@ -108,12 +79,14 @@ def on_message(sid, data):
     """
     message = data['message']
     room_code = data.get('roomCode')
+    to_client['message'] = message
+    to_client['nickname'] = data.get('nickname', '익명')
 
     if message == 'CONNECT':
-        to_client['message'] = 'welcome!'
+        to_client['message'] = f'{to_client["nickname"]} 님이 입장하였습니다.'
         to_client['type'] = 'connect'
     elif message == 'DISCONNECT':
-        to_client['message'] = 'bye bye'
+        to_client['message'] = f'{to_client["nickname"]} 님이 퇴장하였습니다.'
         to_client['type'] = 'disconnect'
     else:
         to_client['message'] = message

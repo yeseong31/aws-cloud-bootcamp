@@ -36,23 +36,28 @@ def create_room(request):
     )
     room.save()
     
-    request.session['nickname'] = owner
-    return redirect(f'/chat/{room.code}/')
+    context = {
+        'nickname': owner,
+        'room_name': room.name,
+        'room_code': room.code
+    }
+    return render(request, 'chat.html', context)
 
 
-def enter_room(request, room_code):
+def enter_room(request):
     """
     방 입장
     
-    :param room_code:
-    - 입장하고자 하는 방 코드
+    :param request:
+    -
     """
-    nickname = request.GET.get('nickname', request.session['nickname'])
+    nickname = request.POST.get('participant')
+    room_code = request.POST.get('roomCode')
     room = get_object_or_404(Room, code=room_code)
 
     context = {
         'nickname': nickname,
         'room_name': room.name,
-        'roomCode': room_code
+        'room_code': room.code
     }
     return render(request, 'chat.html', context)

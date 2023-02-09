@@ -55,12 +55,12 @@
                 {% if room_list %}
                   {% for room in room_list %}
                     <div class="col">
+                      <input type="hidden" id="roomCodeTmp" name="roomCodeTmp" value="{{ room.code }}">
                       <div class="card shadow-sm text-right">
                         <div class="card-body">
                           <p class="card-text">{{ room.name }}</p>
                           <small class="text-muted small mx-2">{{ room.current }}명 / {{ room.total }}명</small>
-                          <a href="{% url 'chat:enter_room' room.code %}"
-                             class="btn btn-outline-primary btn-sm enterRoomBtn" style="float: right">입장</a>
+                          <button class="btn btn-outline-primary btn-sm enterRoomBtn" style="float: right">입장</button>
                         </div>
                       </div>
                     </div>
@@ -143,8 +143,9 @@
   </div>
 
   <!-- 방 입장 Form -->
-  <form method="get" id="enterRoomForm" action="#">
+  <form method="post" id="enterRoomForm" action="{% url 'chat:enter_room' %}">
     <input type="hidden" id="participant" name="participant">
+    <input type="hidden" id="roomCode" name="roomCode">
   </form>
   <!-- 방 생성 Form -->
   <form method="post" id="createRoomForm" action="{% url 'chat:create_room' %}">
@@ -168,7 +169,8 @@
       const room_elements = document.getElementsByClassName("enterRoomBtn");
       Array.from(room_elements).forEach(function (element) {
           element.addEventListener('click', function () {
-              document.getElementById('participant').value = setNickname1.value;
+          document.getElementById('participant').value = setNickname1.value;
+          document.getElementById('roomCode').value = document.getElementById('roomCodeTmp').value;
               document.getElementById('enterRoomForm').submit();
           });
       });
