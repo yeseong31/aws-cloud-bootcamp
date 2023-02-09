@@ -55,7 +55,8 @@
                         <div class="card-body">
                           <p class="card-text">{{ room.name }}</p>
                           <small class="text-muted small mx-2">{{ room.current }}명 / {{ room.total }}명</small>
-                          <a href="#" class="btn btn-outline-primary btn-sm enterRoomBtn" style="float: right">입장</a>
+                          <a href="{% url 'chat:enter_room' room.code %}"
+                             class="btn btn-outline-primary btn-sm enterRoomBtn" style="float: right">입장</a>
                         </div>
                       </div>
                     </div>
