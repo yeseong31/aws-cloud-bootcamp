@@ -8,6 +8,7 @@ from chat.models import Room
 def home(request):
     """
     전체 방 목록 조회
+    
     :return:
     - room_list: 방 목록
     """
@@ -19,11 +20,10 @@ def home(request):
 def create_room(request):
     """
     새로운 방 생성
+    
     :param request:
     - owner: 방 생성자 닉네임
     - roomName: 방 이름
-    :return:
-    - code: 방 코드
     """
     owner = request.POST.get('owner')
     room_name = request.POST.get('roomName')
@@ -40,11 +40,12 @@ def create_room(request):
     return redirect(f'/chat/{room.code}/')
 
 
-def chat(request, room_code):
+def enter_room(request, room_code):
     """
     방 입장
-    :param request:
-    :return:
+    
+    :param room_code:
+    - 입장하고자 하는 방 코드
     """
     nickname = request.GET.get('nickname', request.session['nickname'])
     room = get_object_or_404(Room, code=room_code)
