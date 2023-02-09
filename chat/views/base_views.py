@@ -1,6 +1,6 @@
 import secrets
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from chat.models import Room
 
@@ -47,8 +47,11 @@ def chat(request, room_code):
     :return:
     """
     nickname = request.GET.get('nickname', request.session['nickname'])
+    room = get_object_or_404(Room, code=room_code)
+
     context = {
         'nickname': nickname,
+        'room_name': room.name,
         'roomCode': room_code
     }
     return render(request, 'chat.html', context)
