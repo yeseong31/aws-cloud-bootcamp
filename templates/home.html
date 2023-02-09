@@ -17,7 +17,7 @@
         </div>
         <div class="modal-body">
           <!-- Modal: Profile -->
-          <p class="card-text">닉네임을 설정합니다.</p>
+          <p class="card-text" style="text-align: center">닉네임을 설정합니다.</p>
           <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
             <label for="nickname"></label>
             <input id="setNickname" name="setNickname" type="text"
@@ -43,7 +43,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p class="card-text">입장하고자 하는 방을 선택해 주세요.</p>
+          {% if room_list %}
+            <p class="card-text" style="text-align: center">입장하고자 하는 방을 선택해 주세요.</p>
+          {% else %}
+            <p class="card-text" style="text-align: center">현재 등록된 방이 없습니다.</p>
+          {% endif %}
           <div class="album">
             <div class="container">
               <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
@@ -61,16 +65,6 @@
                       </div>
                     </div>
                   {% endfor %}
-                {% else %}
-                  <div class="col">
-                    <div class="card shadow-sm text-right">
-                      <div class="card-body">
-                        <p class="card-text">1번 방</p>
-                        <small class="text-muted">X명 참가 중</small>
-                        <a href="#" class="btn btn-outline-dark btn-sm" style="float: right">입장</a>
-                      </div>
-                    </div>
-                  </div>
                 {% endif %}
               </div>
             </div>
@@ -99,7 +93,7 @@
         </div>
         <div class="modal-body">
           <!-- Modal: Create Room -->
-          <p class="card-text">새로운 방을 생성합니다.</p>
+          <p class="card-text" style="text-align: center">새로운 방을 생성합니다.</p>
           <div style="align-items: center; margin-top: 10px">
             <input id="setNickname2" name="setNickname2" type="text" class="form-control" disabled>
           </div>
@@ -131,7 +125,7 @@
         </div>
         <div class="modal-body">
           <!-- Modal: Profile -->
-          <p class="card-text">닉네임을 변경합니다.</p>
+          <p class="card-text" style="text-align: center">닉네임을 변경합니다.</p>
           <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
             <label for="changeNickname"></label>
             <input id="changeNickname" name="changeNickname" type="text"
