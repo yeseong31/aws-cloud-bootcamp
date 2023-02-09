@@ -152,8 +152,8 @@
     <input type="hidden" id="participant" name="participant">
   </form>
   <!-- 방 생성 Form -->
-  <form method="post" id="createRoomForm" action="#">
-    <input type="hidden" id="participant" name="participant">
+  <form method="post" id="createRoomForm" action="{% url 'chat:create_room' %}">
+    <input type="hidden" id="owner" name="owner">
     <input type="hidden" id="roomName" name="roomName">
   </form>
 
@@ -212,9 +212,9 @@
       }
 
       function createRoomListener() {
-          document.getElementById('participant').value = setNickname2.value;
+          document.getElementById('owner').value = setNickname2.value;
           document.getElementById('roomName').value = document.getElementById('roomNameTmp').value;
-          document.getElementById('enterRoomForm').submit();
+          document.getElementById('createRoomForm').submit();
       }
 
       function setNicknameListener() {
