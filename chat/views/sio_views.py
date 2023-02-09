@@ -37,9 +37,6 @@ to_client = dict()
 #         count += 1
 #         sio.emit('my_response', {'data': '[Server] Server generated event'}, namespace='/test')
 
-def chat(request):
-    return render(request, 'chat.html')
-
 
 @sio.event
 def on_connect(sid, environ):
