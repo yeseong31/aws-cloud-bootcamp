@@ -14,7 +14,7 @@
           src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.min.js"></script>
 </head>
 <body>
-<section style="background-color: #eee;">
+<section style="background-color: #eee">
   <div class="container py-5">
     <div class="row d-flex justify-content-center">
       <div class="col-md-10 col-lg-8 col-xl-6">
@@ -47,34 +47,35 @@
   </div>
 </section>
 
-<input type="text" id="nickname" value="{{ nickname|default_if_none:'' }}" hidden>
-<input type="text" id="roomCode" value="{{ roomCode|default_if_none:'' }}" hidden>
+<input type="text" id="nickname" autocomplete="off" value="{{ nickname|default_if_none:'' }}" disabled>
+<input type="text" id="roomCode" autocomplete="off" value="{{ roomCode|default_if_none:'' }}" hidden disabled>
 </body>
 <!-- javascript -->
 <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
 <script type="text/javascript">
+    const socket = io.connect('http://' + document.domain + ':' + location.port);
+    const nickname = document.getElementById('nickname');
+    const roomCode = document.getElementById('roomCode');
     $(document).ready(function () {
         console.log('http://' + document.domain + ':' + location.port)
-        const socket = io.connect('http://' + document.domain + ':' + location.port);
         socket.on('connect', function () {
             console.log(socket.connected);
-            if (!(document.getElementById('nickname').value && document.getElementById('roomCode'))) {
+            if (!(nickname.value && roomCode.value)) {
                 alert('이름과 방 설정을 먼저 진행해 주세요.');
                 window.location.href = '/';
             } else {
                 socket.emit(
                     'join', {
-                        'nickname': document.getElementById('nickname').value,
-                        'roomCode': document.getElementById('roomCode').value
+                        'nickname': nickname.value,
+                        'roomCode': roomCode.value
                     });
-                socket.send('New Connect!');
+                socket.emit('message', {'message': 'CONNECT', 'roomCode': roomCode.value});
             }
         });
         socket.on('disconnect', function () {
             console.log(socket.connected);
-            const msg = 'Disconnect';
-            socket.send(msg);
+            socket.emit('message', {'message': 'DISCONNECT'});
         });
         socket.on('message', function (msg) {
             const messageBlock = $('.messages');
@@ -95,11 +96,14 @@
             sendMessage()
         }
     });
+
     function sendMessage() {
-        const socket = io.connect('http://' + document.domain + ':' + location.port);
         let inputMessage = $('#messageInput');
-        if (inputMessage.val().replace(/^\s+|\s+$/g,'') !== '') {
-            socket.send(inputMessage.val());
+        if (inputMessage.val().replace(/^\s+|\s+$/g, '') !== '') {
+            socket.emit('message', {
+                'message': inputMessage.val(),
+                'roomCode': document.getElementById('roomCode').value
+            });
             inputMessage.val('');
         }
     }
