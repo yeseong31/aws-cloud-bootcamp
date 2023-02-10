@@ -37,7 +37,7 @@ def create_room(request):
     room.save()
 
     context = {
-        'nickname': f'⭐owner',
+        'nickname': f'⭐{owner}',
         'room_name': room.name,
         'room_code': room.code
     }
