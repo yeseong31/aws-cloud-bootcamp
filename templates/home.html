@@ -148,11 +148,13 @@
   <form method="post" id="enterRoomForm" action="{% url 'chat:enter_room' %}">
     <input type="hidden" id="participant" name="participant">
     <input type="hidden" id="roomCode" name="roomCode">
+    <input type="hidden" id="type" name="type" value="enter">
   </form>
   <!-- 방 생성 Form -->
-  <form method="post" id="createRoomForm" action="{% url 'chat:create_room' %}">
+  <form method="post" id="createRoomForm" action="{% url 'chat:enter_room' %}">
     <input type="hidden" id="owner" name="owner">
     <input type="hidden" id="roomName" name="roomName">
+    <input type="hidden" id="type" name="type" value="create">
   </form>
 
 {% endblock %}

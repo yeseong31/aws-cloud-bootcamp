@@ -6,9 +6,8 @@ app_name = 'chat'
 
 urlpatterns = [
     # 홈페이지
-    path('', base_views.home, name='home'),
-    # 방 생성
-    path('room/', base_views.create_room, name='create_room'),
-    # 방 입장 (SocketIO)
-    path('chat/', base_views.enter_room, name='enter_room'),
+    path('home/', base_views.home, name='home'),
+    # 방 생성 및 입장 (SocketIO)
+    # path('room/', base_views.create_room, name='create_room'),
+    path('', base_views.enter_room, name='enter_room'),
 ]
