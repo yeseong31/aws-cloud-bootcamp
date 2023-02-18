@@ -12,6 +12,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     os.getenv('ELASTIC_HOST'),
+    os.getenv('DOMAIN_NAME'),
 ]
 
 # Database
