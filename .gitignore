@@ -3,6 +3,7 @@
 
 /secret
 /static
+/staticfiles
 !/static/css/*
 
 /**/migrations
