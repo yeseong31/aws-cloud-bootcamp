@@ -87,4 +87,6 @@ def enter_room(request):
         }
         return render(request, 'chat.html', context)
     else:
-        return render(request, 'home.html')
+        room_list = Room.objects.order_by('-created_at')
+        context = {'room_list': room_list}
+        return render(request, 'home.html', context)
