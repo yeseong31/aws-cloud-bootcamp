@@ -15,6 +15,9 @@ ALLOWED_HOSTS = [
     os.getenv('DOMAIN_NAME'),
 ]
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = []
+
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
