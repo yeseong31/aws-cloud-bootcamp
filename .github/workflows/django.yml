@@ -5,15 +5,31 @@ env:
 
 on:
   push:
-    branches:
-        - main
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    matrix:
+      python-version: [3.8]
+
     steps:
       - name: Git clone on our repo
         uses: actions/checkout@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install eventlet==0.30.2
+
+      - name: Run Tests
+        run: |
+          python manage.py test
 
       - name: Create zip deployment package
         run: zip -r ${{ env.DEPLOY_PACKAGE_NAME }} ./ -x *.git*
@@ -27,6 +43,11 @@ jobs:
 
       - name: Copying file to S3
         run: aws s3 cp ${{ env.DEPLOY_PACKAGE_NAME }} s3://${{ secrets.EB_S3_BUCKET_NAME }}/
+
+      - name: make logs dir
+        run: |
+          cd ~
+          mkdir logs
 
       - name: Print message on success finish
         run: echo "CI part finished successfully"
@@ -48,6 +69,11 @@ jobs:
           --application-name ${{ secrets.EB_APPLICATION_NAME }} \
           --source-bundle S3Bucket="${{ secrets.EB_S3_BUCKET_NAME }}",S3Key="${{ env.DEPLOY_PACKAGE_NAME }}" \
           --version-label "${{ github.sha }}"
+
+      - name: make logs dir
+        run: |
+          cd ~
+          mkdir logs
 
       - name: Deploy new app
         run: aws elasticbeanstalk update-environment --environment-name ${{ secrets.EB_ENVIRONMENT_NAME }} --version-label "${{ github.sha }}"
