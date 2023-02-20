@@ -31,10 +31,9 @@ jobs:
     # 패키지 설치
     - name: install Dependencies
       run: |
-        . aws.sh
         python -m pip install --upgrade pip
-        pip3 install -r requirements.txt
-        pip3 install eventlet==0.30.2
+        pip install -r requirements.txt
+        pip install eventlet==0.30.2
 
     # 환경 변수 설정
     - name: create .env
