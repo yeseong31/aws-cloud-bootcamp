@@ -12,8 +12,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    matrix:
-      python-version: [3.8]
+    strategy:
+      matrix:
+        python-version: [3.8]
 
     steps:
       - name: Git clone on our repo
