@@ -23,9 +23,10 @@
           <!-- 방 이름 -->
           <div class="card-header d-flex justify-content-between align-items-center p-3">
             <h3 id="roomName" class="mb-0">{{ room_name }}</h3>
-            <button type="button" class="btn btn-outline-danger" data-mdb-ripple-color="dark" onclick="exitRoom()">
+            <a href="{% url 'chat:home' %}" type="button" class="btn btn-outline-danger"
+               data-mdb-ripple-color="dark" onclick="exitRoom()">
               <b style="font-size: 15px;">나가기</b>
-            </button>
+            </a>
           </div>
           <!-- 메시지 내용 -->
           <div class="card-body overflow-auto" data-mdb-perfect-scrollbar="true"
@@ -120,7 +121,6 @@
     function exitRoom() {
         if (confirm("방을 나가시겠습니까?") === true) {
             socket.emit('message', {'message': 'DISCONNECT', 'nickname': nickname.value, 'roomCode': roomCode.value});
-            window.location.href = "/";
         }
     }
 </script>
