@@ -9,55 +9,78 @@ def home(request):
     """
     전체 방 목록 조회
     
+    :param request:
+    - type: 방 생성일 경우 'CREATE', 입장일 경우 'ENTER', 그렇지 않으면 None
     :return:
     - room_list: 방 목록
     """
-    room_list = Room.objects.order_by('-created_at')
-    context = {'room_list': room_list}
-    return render(request, 'index.html', context)
+    _type = request.POST.get('type')
+    
+    if _type == 'ENTER':
+        context = enter_room(request)
+        return render(request, 'chat.html', context)
+    elif _type == 'CREATE':
+        context = create_room(request)
+        return render(request, 'chat.html', context)
+    else:
+        room_list = Room.objects.order_by('-created_at')
+        context = {'room_list': room_list}
+        return render(request, 'index.html', context)
 
 
 def enter_room(request):
     """
-    방 생성 및 입장
+    방 입장
     
     :param request:
-    - type: 방 생성일 경우 'create', 입장일 경우 'enter', 그렇지 않으면 ''
-    - participant(enter): 참가자 닉네임
-    - roomCode(enter): 방 코드
-    - owner(create): 방 생성자 닉네임
-    - roomName(create): 방 이름
+    - participant: 참가자 닉네임
+    - roomId: 방 번호
+    :return:
+    - nickname: 참가자 닉네임
+    - room_name: 방 이름
+    - room_code: 방 코드
     """
-    _type = request.POST.get('type')
-    if _type == 'enter':
-        nickname = request.POST.get('participant')
-        room_code = request.POST.get('roomCode')
+    nickname = request.POST.get('participant')
+    room_id = request.POST.get('roomId')
+
+    room = get_object_or_404(Room, id=room_id)
+
+    context = {
+        'nickname': nickname,
+        'room_name': room.name,
+        'room_code': room.code
+    }
+
+    return context
+
+
+def create_room(request):
+    """
+    방 생성
     
-        room = get_object_or_404(Room, code=room_code)
+    :param request:
+    - ownerName: 방 생성자 닉네임
+    - sendRoomName: 방 이름
+    :return:
+    - nickname: 참가자 닉네임
+    - room_name: 방 이름
+    - room_code: 방 코드
+    """
+    owner = request.POST.get('ownerName')
+    room_name = request.POST.get('sendRoomName')
+
+    # 새로운 방 생성
+    room = Room(
+        name=room_name,
+        code=secrets.token_urlsafe(5),
+        owner=owner
+    )
+    room.save()
+
+    context = {
+        'nickname': f'⭐{owner}',
+        'room_name': room.name,
+        'room_code': room.code
+    }
     
-        context = {
-            'nickname': nickname,
-            'room_name': room.name,
-            'room_code': room.code
-        }
-        return render(request, 'chat.html', context)
-    elif _type == 'create':
-        owner = request.POST.get('owner')
-        room_name = request.POST.get('roomName')
-    
-        # 새로운 방 생성
-        room = Room(
-            name=room_name,
-            code=secrets.token_urlsafe(5),
-            owner=owner
-        )
-        room.save()
-    
-        context = {
-            'nickname': f'⭐{owner}',
-            'room_name': room.name,
-            'room_code': room.code
-        }
-        return render(request, 'chat.html', context)
-    else:
-        return redirect('/home')
+    return context
