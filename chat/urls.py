@@ -10,6 +10,8 @@ urlpatterns = [
     # 홈페이지
     path('', base_views.home, name='home'),
     path('home/', base_views.home, name='home'),
+    # About
+    path('about/', base_views.about, name='about'),
     # 방 생성
     path('room/enter/', base_views.enter_room, name='enter_room'),
     # 방 입장

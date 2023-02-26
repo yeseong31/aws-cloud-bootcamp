@@ -26,6 +26,16 @@ def home(request):
         room_list = Room.objects.order_by('-created_at')
         context = {'room_list': room_list}
         return render(request, 'index.html', context)
+    
+
+def about(request):
+    """
+    About 페이지
+    
+    :param request:
+    :return:
+    """
+    return render(request, 'about.html')
 
 
 def enter_room(request):
