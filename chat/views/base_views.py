@@ -14,7 +14,7 @@ def home(request):
     """
     room_list = Room.objects.order_by('-created_at')
     context = {'room_list': room_list}
-    return render(request, 'home.html', context)
+    return render(request, 'index.html', context)
 
 
 def enter_room(request):
