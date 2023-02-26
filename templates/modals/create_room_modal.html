@@ -1,0 +1,62 @@
+{% block content %}
+
+<div class="modal fade" id="createRoomModalToggle" data-bs-backdrop="static" aria-hidden="true"
+     aria-labelledby="createRoomModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="createRoomModalToggleLabel">방 생성</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Modal: Create Room -->
+        <p class="card-text" style="text-align: center">새로운 방을 생성합니다.</p>
+        <div style="align-items: center; margin-top: 10px">
+          <label for="prevNickname"></label>
+          <input id="prevNickname" name="prevNickname" type="text" class="form-control" disabled>
+        </div>
+        <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+          <input id="roomName" name="roomName" type="text"
+                 class="form-control" placeholder="방 이름을 입력해 주세요." onkeyup="listenerSetRoomName()">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-success" data-bs-backdrop="static"
+                data-bs-target="#changeNicknameModalToggle" data-bs-toggle="modal">닉네임 변경
+        </button>
+        <button class="btn btn-outline-secondary" data-bs-backdrop="static" data-bs-target="#choiceRoomModalToggle"
+                data-bs-toggle="modal">뒤로
+        </button>
+        <button id="btnEnterRoom" class="btn btn-primary" onclick="createRoomListener()" disabled>입장</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+const prevNickname = document.getElementById('prevNickname');
+const roomName = document.getElementById('roomName');
+
+function setNicknameListener() {
+    prevNickname.value = nickname.value;
+}
+
+function listenerSetRoomName() {
+    switch (!roomName.value) {
+        case true:
+            btnEnterRoom.disabled = true;
+            break;
+        case false:
+            btnEnterRoom.disabled = false;
+            break;
+    }
+}
+</script>
+
+{% endblock %}

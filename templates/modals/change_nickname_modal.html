@@ -1,0 +1,56 @@
+{% block content %}
+
+<div class="modal fade" id="changeNicknameModalToggle" data-bs-backdrop="static" aria-hidden="true"
+     aria-labelledby="changeNicknameModalToggleLabel" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="width: 1000px">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="changeNicknameModalToggleLabel">프로필 변경</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Modal: Profile -->
+        <p class="card-text" style="text-align: center">닉네임을 변경합니다.</p>
+        <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+          <label for="changeNickname"></label>
+          <input id="changeNickname" name="changeNickname" type="text"
+                 class="form-control my-comment-box-content" placeholder="닉네임을 입력해 주세요." onkeyup="listenerChangeNickname2()">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-secondary" data-bs-target="#createRoomModalToggle" data-bs-toggle="modal">뒤로
+        </button>
+        <button id="btnChangeNickname" class="btn btn-primary" data-bs-target="#createRoomModalToggle"
+                data-bs-toggle="modal" onclick="listenerChangeNickname()" disabled>변경
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type="text/javascript">
+const changeNickname = document.getElementById('changeNickname');
+const btnChangeNickname = document.getElementById('btnChangeNickname');
+
+function listenerChangeNickname2() {
+    switch (!changeNickname.value) {
+        case true:
+            btnChangeNickname.disabled = true;
+            break;
+        case false:
+            btnChangeNickname.disabled = false;
+            break;
+    }
+}
+
+function listenerChangeNickname() {
+    nickname.value = changeNickname.value;
+    prevNickname.value = changeNickname.value;
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% block content %}
+
+  <!-- Set NickName Modal -->
+  <div class="modal fade" id="setNicknameModalToggle" data-bs-backdrop="static" aria-hidden="true"
+       aria-labelledby="setNicknameModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: 1000px">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">프로필 설정</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Modal: Profile -->
+          <p class="card-text" style="text-align: center">닉네임을 설정합니다.</p>
+          <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+            <label for="nickname"></label>
+            <input id="nickname" name="nickname" type="text"
+                   class="form-control" placeholder="닉네임을 입력해 주세요." onkeyup="listenerSetNickname()">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnSetNickname" class="btn btn-primary" data-bs-target="#choiceRoomModalToggle"
+                  data-bs-toggle="modal" disabled>다음
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script %}
+
+<script type='text/javascript'>
+const nickname = document.getElementById('nickname');
+const btnSetNickname = document.getElementById('btnSetNickname');
+
+function listenerSetNickname() {
+    switch (!nickname.value) {
+        case true:
+            btnSetNickname.disabled = true;
+            break;
+        case false:
+            btnSetNickname.disabled = false;
+            break;
+    }
+}
+</script>
+
+{% endblock %}
