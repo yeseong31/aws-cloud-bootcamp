@@ -12,40 +12,44 @@
       <div class="modal-body">
         <!-- Modal: Create Room -->
         <p class="card-text" style="text-align: center">새로운 방을 생성합니다.</p>
-        <div style="align-items: center; margin-top: 10px">
-          <label for="prevNickname"></label>
-          <input id="prevNickname" name="prevNickname" type="text" class="form-control" disabled>
-        </div>
-        <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
-          <input id="roomName" name="roomName" type="text"
-                 class="form-control" placeholder="방 이름을 입력해 주세요." onkeyup="listenerSetRoomName()">
-        </div>
+          <div style="align-items: center; margin-top: 10px">
+            <input id="owner" name="owner" type="text" class="form-control" disabled>
+          </div>
+          <div style="display:flex; flex-direction: row; align-items: center; margin-top: 10px">
+            <label for="roomName"></label>
+            <input id="roomName" name="roomName" type="text"
+                   class="form-control" placeholder="방 이름을 입력해 주세요." onkeyup="listenerSetRoomName()">
+          </div>
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline-success" data-bs-backdrop="static"
                 data-bs-target="#changeNicknameModalToggle" data-bs-toggle="modal">닉네임 변경
         </button>
-        <button class="btn btn-outline-secondary" data-bs-backdrop="static" data-bs-target="#choiceRoomModalToggle"
-                data-bs-toggle="modal">뒤로
+        <button type="button" class="btn btn-outline-secondary" data-bs-backdrop="static"
+                data-bs-target="#choiceRoomModalToggle" data-bs-toggle="modal">뒤로
         </button>
-        <button id="btnEnterRoom" class="btn btn-primary" onclick="createRoomListener()" disabled>입장</button>
+        <button type="submit" id="btnEnterRoom" class="btn btn-primary" onclick="createRoomListener()" disabled>입장
+        </button>
       </div>
-
     </div>
   </div>
 </div>
+
+<form method="post" id="createRoomForm" action="{% url 'chat:home' %}"> {% csrf_token %}
+  <input type="hidden" id="ownerName" name="ownerName">
+  <input type="hidden" id="sendRoomName" name="sendRoomName">
+  <input type="hidden" id="type" name="type" value="CREATE">
+</form>
 
 {% endblock %}
 
 {% block script %}
 
 <script type="text/javascript">
-const prevNickname = document.getElementById('prevNickname');
 const roomName = document.getElementById('roomName');
-
-function setNicknameListener() {
-    prevNickname.value = nickname.value;
-}
+const ownerName = document.getElementById('ownerName');
+const sendRoomName = document.getElementById('sendRoomName');
+const createRoomForm = document.getElementById('createRoomForm');
 
 function listenerSetRoomName() {
     switch (!roomName.value) {
@@ -56,6 +60,12 @@ function listenerSetRoomName() {
             btnEnterRoom.disabled = false;
             break;
     }
+}
+
+function createRoomListener() {
+    ownerName.value = nickname.value;
+    sendRoomName.value = roomName.value;
+    createRoomForm.submit();
 }
 </script>
 
