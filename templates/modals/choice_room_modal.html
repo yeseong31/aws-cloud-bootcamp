@@ -37,7 +37,7 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline-success" data-bs-target="#createRoomModalToggle"
-                data-bs-toggle="modal" onclick="setNicknameListener()">방 생성
+                data-bs-toggle="modal" onclick="createRoomBtn()">방 생성
         </button>
         <button class="btn btn-outline-secondary" data-bs-backdrop="static" data-bs-target="#setNicknameModalToggle"
                 data-bs-toggle="modal">뒤로
@@ -47,7 +47,7 @@
   </div>
 </div>
 
-<form method="post" id="enterRoomForm" action="{% url 'chat:enter_room' %}"> {% csrf_token %}
+<form method="post" id="enterRoomForm" action="{% url 'chat:home' %}"> {% csrf_token %}
     <input type="hidden" id="roomId" name="roomId">
     <input type="hidden" id="participant" name="participant">
     <input type="hidden" id="type" name="type" value="ENTER">
@@ -61,7 +61,8 @@
 const room_elements = document.getElementsByClassName("enterRoomBtn");
 const participant = document.getElementById("participant");
 const roomId = document.getElementById("roomId");
-const enterRoomForm = document.getElementById('enterRoomForm')
+const enterRoomForm = document.getElementById('enterRoomForm');
+const owner = document.getElementById('owner');
 
 Array.from(room_elements).forEach(function (element) {
     element.addEventListener('click', function () {
@@ -73,6 +74,10 @@ function enterRoomBtn(id) {
     participant.value = nickname.value;
     roomId.value = id
     enterRoomForm.submit();
+}
+
+function createRoomBtn() {
+    owner.value = nickname.value;
 }
 </script>
 
