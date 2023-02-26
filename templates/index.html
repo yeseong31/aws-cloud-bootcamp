@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+  {% include 'nav.html' %}
+
+  <main class="px-3">
+    <h1>Socket.IO Chat App</h1>
+    <br>
+    <p class="lead">
+      AWS Cloud Bootcamp Final Project<br>
+      Socket.IO 채팅 웹 애플리케이션
+    </p>
+    <br>
+    <p class="lead">
+      <button class="btn btn-lg btn-light fw-bold border-white bg-white"
+         data-bs-target="#setNicknameModalToggle" data-bs-toggle="modal">시작하기</button>
+    </p>
+
+    {% include 'modals/change_nickname_modal.html' %}
+    {% include 'modals/create_room_modal.html' %}
+    {% include 'modals/choice_room_modal.html' %}
+    {% include 'modals/set_nickname_modal.html' %}
+  </main>
+
+  <footer class="mt-auto text-white-50">
+    <p>
+      <a href="https://github.com/yeseong31" class="text-white">GitHub</a>
+    </p>
+  </footer>
+</div>
+
+{% endblock %}
