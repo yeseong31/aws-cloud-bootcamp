@@ -8,5 +8,5 @@ app_name = 'api'
 
 urlpatterns = [
     # Notion API
-    path('notion/add/', notion_views.add_item_to_database, name='add_item_to_database'),
+    path('notion/add/', notion_views.notion_database_view, name='notion_database_view'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
