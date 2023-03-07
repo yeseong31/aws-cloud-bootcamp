@@ -5,3 +5,5 @@
 
 # aws-cloud-bootcamp
 AWS Cloud Bootcamp 개인 프로젝트
+
+[Notion 정리](https://www.notion.so/AWS-Cloud-Bootcamp-Final-Project-08a33e83335d4de2be8ca1206cf0e71c)
