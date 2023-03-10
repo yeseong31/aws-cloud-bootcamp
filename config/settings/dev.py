@@ -23,14 +23,6 @@ DATABASES = {
         'HOST': os.getenv('LOCAL_DB_HOST'),
         'PORT': int(os.getenv('LOCAL_DB_PORT')),
     },
-    # "mongodb": {
-    #     "ENGINE": os.getenv('LOCAL_MONGODB_ENGINE'),
-    #     'NAME': os.getenv('LOCAL_MONGODB_NAME'),
-    #     'USER': os.getenv('LOCAL_MONGODB_USER'),
-    #     'PASSWORD': os.getenv('LOCAL_MONGODB_PASSWORD'),
-    #     'HOST': os.getenv('LOCAL_MONGODB_HOST'),
-    #     'PORT': int(os.getenv('LOCAL_MONGODB_PORT')),
-    # }
 }
 
 db_from_env = config(conn_max_age=500)
