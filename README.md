@@ -56,26 +56,47 @@ Amazon Route 53에는 도메인을 구입하여 호스팅 영역으로 설정한
 ## ⏳ 개발 일지
 
 **2023-01-20** 프로젝트 주제 구상
+
 **2023-01-23** Amazon EC2 Ubuntu Python 버전 변경
+
 **2023-02-04** Django 개발 환경과 서버 환경 분리
+
 **2023-02-05** SocketIO 채팅 기능 구현
+
 **2023-02-07** 채팅 웹 페이지 UI 구현
+
 **2023-02-09** 방 정보 생성 및 Amazon RDS 마이그레이션
+
 **2023-02-18** 도메인 구입 및 Route 53 호스팅 생성
 
+
 [기본 Amazon EC2 설정](https://www.notion.so/Amazon-EC2-79043c86209c4063810b547ef6796f39)
+
 [Anaconda의 빠른 실행을 위한 배치 파일 생성](https://www.notion.so/Anaconda-70b087c7e1c947b69ec9fbcf11b84e7e)
+
 [Python 버전 변경에 따른 환경 재설정](https://www.notion.so/Python-fc072f82647a4b5b9d6f2ee0c0317217)
+
 [python-socketio로 Socket.io 서버 생성](https://www.notion.so/python-socketio-Socket-io-2cf417c9886a4bd595f940771ba8a1d1)
+
 [Socket.IO 통신 문제 해결](https://www.notion.so/Socket-IO-67091b4f2a9a4fb4b3f5bf72226fe27a)
+
 [Ubuntu에서 mysqlclient 설치 오류](https://www.notion.so/Ubuntu-mysqlclient-b4b08268ae8f48fcb5d62a6e188b28bd)
+
 [번외) Django에서 Notion API DB를 사용하는 방법](https://www.notion.so/Django-Notion-API-DB-2683b05477e4485caaa4cda67935c12a)
+
 [프로젝트 Notion 정리본](https://www.notion.so/AWS-Cloud-Bootcamp-Final-Project-08a33e83335d4de2be8ca1206cf0e71c)
 
 ## 📚 참고 자료
 
 [https://github.com/miguelgrinberg/python-socketio](https://github.com/miguelgrinberg/python-socketio)
-[](https://socket.io/docs/v4/)[https://socket.io/docs/v4/](https://socket.io/docs/v4/)
-[](https://python-socketio.readthedocs.io/en/latest/)[https://python-socketio.readthedocs.io/en/latest/](https://python-socketio.readthedocs.io/en/latest/)
-[](https://www.peterkimzz.com/websocket-vs-socket-io/)[https://www.peterkimzz.com/websocket-vs-socket-io/](https://www.peterkimzz.com/websocket-vs-socket-io/)
-[](https://inpa.tistory.com/entry/SOCKET-%F0%9F%93%9A-SocketIO-%EC%82%AC%EC%9A%A9-%ED%95%B4%EB%B3%B4%EA%B8%B0)[https://inpa.tistory.com/entry/SOCKET-📚-SocketIO-사용-해보기](https://inpa.tistory.com/entry/SOCKET-%F0%9F%93%9A-SocketIO-%EC%82%AC%EC%9A%A9-%ED%95%B4%EB%B3%B4%EA%B8%B0)
+[](https://socket.io/docs/v4/)
+
+[https://socket.io/docs/v4/](https://socket.io/docs/v4/)
+[](https://python-socketio.readthedocs.io/en/latest/)
+
+[https://python-socketio.readthedocs.io/en/latest/](https://python-socketio.readthedocs.io/en/latest/)
+[](https://www.peterkimzz.com/websocket-vs-socket-io/)
+
+[https://www.peterkimzz.com/websocket-vs-socket-io/](https://www.peterkimzz.com/websocket-vs-socket-io/)
+[](https://inpa.tistory.com/entry/SOCKET-%F0%9F%93%9A-SocketIO-%EC%82%AC%EC%9A%A9-%ED%95%B4%EB%B3%B4%EA%B8%B0)
+[https://inpa.tistory.com/entry/SOCKET-📚-SocketIO-사용-해보기](https://inpa.tistory.com/entry/SOCKET-%F0%9F%93%9A-SocketIO-%EC%82%AC%EC%9A%A9-%ED%95%B4%EB%B3%B4%EA%B8%B0)
